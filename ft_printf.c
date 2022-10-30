@@ -6,7 +6,7 @@
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 07:25:46 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/30 07:41:39 by mahansal         ###   ########.fr       */
+/*   Updated: 2022/10/30 11:42:47 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,22 @@ int	ft_printf(const char *str, ...)
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'd')
 		{
-			ft_putnbr(va_arg(ap, int));
+			char_count += ft_putnbr(va_arg(ap, int));
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'i')
 		{
-			ft_putnbr(va_arg(ap, int));
+			char_count += ft_putnbr(va_arg(ap, int));
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'u')
+		{
+			char_count += ft_putunbr(va_arg(ap, unsigned int));
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'x')
+		{
+			char_count += ft_puthex(va_arg(ap, int));
 			index++;
 		}
 		else
