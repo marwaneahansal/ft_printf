@@ -3,21 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahansal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 07:25:46 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/27 07:34:42 by mahansal         ###   ########.fr       */
+/*   Updated: 2022/10/30 07:41:39 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 int	ft_printf(const char *str, ...)
 {
-	va_list	ptr;
+	va_list	ap;
+	int		index;
+	int		char_count;
 
-	va_start(ptr, str);
-	va_end(ptr);
-	return (0);
+	index = 0;
+	char_count = 0;
+	va_start(ap, str);
+	while (str[index])
+	{
+		if (str[index] == '%' && str[index + 1] && str[index + 1] == 'c')
+		{
+			ft_putchar(va_arg(ap, int));
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 's')
+		{
+			char_count += ft_putstr(va_arg(ap, char *)) - 1;
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == '%')
+		{
+			ft_putchar('%');
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'd')
+		{
+			ft_putnbr(va_arg(ap, int));
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'i')
+		{
+			ft_putnbr(va_arg(ap, int));
+			index++;
+		}
+		else
+			write(1, &str[index], 1);
+		index++;
+		char_count++;
+	}
+	va_end(ap);
+	return (char_count);
 }

@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 07:31:01 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/30 07:49:44 by mahansal         ###   ########.fr       */
+/*   Created: 2022/10/30 07:30:24 by mahansal          #+#    #+#             */
+/*   Updated: 2022/10/30 07:40:30 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
-int	main(void)
+void	ft_putnbr(int n)
 {
-	int x = ft_printf("hello %i %i\n", -10, 0xa);
-	int y = printf("hello %i %i\n", -10, 0xa);
-	printf("%d -- %d\n", x, y);
-	return (0);
+	if (n == -2147483648)
+		ft_putstr("-2147483648");
+	else
+	{
+		if (n < 0)
+		{
+			ft_putchar('-');
+			n *= -1;
+		}
+		if (n < 10)
+		{
+			ft_putchar(n + '0');
+		}
+		else
+		{
+			ft_putnbr(n / 10);
+			ft_putchar(n % 10 + '0');
+		}
+	}
 }
