@@ -6,13 +6,14 @@
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:09:13 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/30 06:34:42 by mahansal         ###   ########.fr       */
+/*   Updated: 2022/10/31 04:36:21 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+void	ft_putchar(char c, int *char_count)
 {
 	write(1, &c, 1);
+	*char_count = *char_count + 1;
 }

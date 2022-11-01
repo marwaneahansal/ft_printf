@@ -6,7 +6,7 @@
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 07:25:46 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/30 11:42:47 by mahansal         ###   ########.fr       */
+/*   Updated: 2022/10/31 08:49:41 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,52 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[index] == '%' && str[index + 1] && str[index + 1] == 'c')
 		{
-			ft_putchar(va_arg(ap, int));
+			ft_putchar(va_arg(ap, int), &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 's')
 		{
-			char_count += ft_putstr(va_arg(ap, char *)) - 1;
+			ft_putstr(va_arg(ap, char *), &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == '%')
 		{
-			ft_putchar('%');
+			ft_putchar('%', &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'd')
 		{
-			char_count += ft_putnbr(va_arg(ap, int));
+			ft_putnbr(va_arg(ap, int), &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'i')
 		{
-			char_count += ft_putnbr(va_arg(ap, int));
+			ft_putnbr(va_arg(ap, int), &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'u')
 		{
-			char_count += ft_putunbr(va_arg(ap, unsigned int));
+			ft_putunbr(va_arg(ap, unsigned int), &char_count);
 			index++;
 		}
 		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'x')
 		{
-			char_count += ft_puthex(va_arg(ap, int));
+			ft_puthex(va_arg(ap, unsigned int), &char_count);
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'X')
+		{
+			ft_puthex_maj(va_arg(ap, unsigned int), &char_count);
+			index++;
+		}
+		else if (str[index] == '%' && str[index + 1] && str[index + 1] == 'p')
+		{
+			ft_put_pointer((unsigned long) va_arg(ap, void *), &char_count, 1);
 			index++;
 		}
 		else
-			write(1, &str[index], 1);
+			ft_putchar(str[index], &char_count);
 		index++;
-		char_count++;
 	}
 	va_end(ap);
 	return (char_count);

@@ -6,23 +6,22 @@
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:36:19 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/30 06:47:27 by mahansal         ###   ########.fr       */
+/*   Updated: 2022/10/31 04:14:11 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putstr(char *str)
+void	ft_putstr(char *str, int *char_count)
 {
 	int	index;
 
 	index = 0;
 	if (!str)
-		return (ft_putstr("(null)"));
-	while (str[index])
+		ft_putstr("(null)", char_count);
+	while (str && str[index])
 	{
-		write(1, &str[index], 1);
+		ft_putchar(str[index], char_count);
 		index++;
 	}
-	return (index);
 }

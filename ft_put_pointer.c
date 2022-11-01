@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr.c                                       :+:      :+:    :+:   */
+/*   ft_put_pointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahansal <mahansal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 07:30:24 by mahansal          #+#    #+#             */
-/*   Updated: 2022/10/31 04:34:44 by mahansal         ###   ########.fr       */
+/*   Created: 2022/10/31 08:14:26 by mahansal          #+#    #+#             */
+/*   Updated: 2022/10/31 08:49:37 by mahansal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putunbr(unsigned int n, int *char_count)
+void	ft_put_pointer(unsigned long ptr, int *char_count, int first_call)
 {
-	if (n < 0)
+	unsigned long	n;
+	char			*hex;
+
+	hex = "0123456789abcdef";
+	n = (unsigned long) ptr;
+	if (first_call != 0)
+		ft_putstr("0x", char_count);
+	if (n < 16)
 	{
-		ft_putchar('-', char_count);
-		n *= -1;
-	}
-	if (n < 10)
-	{
-		ft_putchar(n + '0', char_count);
+		ft_putchar(hex[n], char_count);
 	}
 	else
 	{
-		ft_putnbr(n / 10, char_count);
-		ft_putchar(n % 10 + '0', char_count);
+		ft_put_pointer(n / 16, char_count, 0);
+		ft_putchar(hex[n % 16], char_count);
 	}
 }
